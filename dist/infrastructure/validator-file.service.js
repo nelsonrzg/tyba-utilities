@@ -40,7 +40,7 @@ let ValidatorFileService = class ValidatorFileService {
                     clientCount = clientCount + Number(dato.slice(21, 42).trim().replace(/^0+/, ''));
                 }
                 else if (subAccountRecordTypeColumn === '0101010') {
-                    clientCount = clientCount + Number(dato.slice(21, 42).trim().replace(/^0+/, ''));
+                    clientCount = clientCount - Number(dato.slice(21, 42).trim().replace(/^0+/, ''));
                 }
                 else if (subAccountRecordTypeColumn === '0101015') {
                     clientCount = clientCount + Number(dato.slice(21, 42).trim().replace(/^0+/, ''));
@@ -57,8 +57,8 @@ let ValidatorFileService = class ValidatorFileService {
                     }
                     else {
                         validationPassed = false;
-                        console.log(`Validación fallida del formato ${format} para el fondo: ${fund}. 
-              Sumatoria -> ${clientCount} ${subAccountRecordTypeColumn} -> F22:`, Number(dato.slice(21, 42).trim().replace(/^0+/, '')));
+                        console.log(`Validation failed for format ${format} for fund: ${fund}. 
+              Sum -> ${clientCount} ${subAccountRecordTypeColumn} -> F22:`, Number(dato.slice(21, 42).trim().replace(/^0+/, '')));
                         countArray.push({ value: Number(dato.slice(21, 42).trim().replace(/^0+/, '')), fund: ` ${fund.trim()}` });
                     }
                 }

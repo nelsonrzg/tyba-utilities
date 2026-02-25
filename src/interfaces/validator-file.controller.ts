@@ -41,7 +41,7 @@ export class ValidatorFileController {
         throw new HttpException('The CSV must contain a "dato" column in the header', HttpStatus.BAD_REQUEST);
       }
       
-      console.log('Begin validation process for F22 file ' + file.originalname);
+      console.log('Begun validation process for F22 file ' + file.originalname);
       const totalRecords = await this.validatorFileService.processFile(csvContent);
       return { totalRecords };
     }
