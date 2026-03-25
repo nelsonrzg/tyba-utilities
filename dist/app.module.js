@@ -12,7 +12,9 @@ const platform_express_1 = require("@nestjs/platform-express");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const validator_file_controller_1 = require("./interfaces/validator-file.controller");
+const excel_pdf_controller_1 = require("./interfaces/excel-pdf.controller");
 const validator_file_service_1 = require("./infrastructure/validator-file.service");
+const excel_pdf_service_1 = require("./infrastructure/excel-pdf.service");
 const count_txt_records_usecase_1 = require("./application/count-txt-records.usecase");
 let AppModule = class AppModule {
 };
@@ -24,8 +26,8 @@ exports.AppModule = AppModule = __decorate([
                 storage: undefined,
             }),
         ],
-        controllers: [app_controller_1.AppController, validator_file_controller_1.ValidatorFileController],
-        providers: [app_service_1.AppService, validator_file_service_1.ValidatorFileService, count_txt_records_usecase_1.CountTxtRecordsUseCase],
+        controllers: [app_controller_1.AppController, validator_file_controller_1.ValidatorFileController, excel_pdf_controller_1.ExcelPdfController],
+        providers: [app_service_1.AppService, validator_file_service_1.ValidatorFileService, excel_pdf_service_1.ExcelPdfService, count_txt_records_usecase_1.CountTxtRecordsUseCase],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
