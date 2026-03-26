@@ -136,15 +136,13 @@ export class ExcelPdfService {
       }
       const fondo = 'FONDO VOLUNTARIO DE PENSIONES DE JUBILACIONES E INVALIDEZ CREDICORP';
 
-      doc.moveDown(3).fontSize(10).font('Helvetica-Bold').text(`${fondo}`, { align: 'center'});
+      doc.moveDown(4.5).fontSize(10).font('Helvetica-Bold').text(`${fondo}`, { align: 'center' });
       
       doc.moveDown(1).fontSize(10).font('Helvetica-Bold').text(`NIT 900.625.483-1`, { align: 'center' });
       
       doc.moveDown(1).fontSize(10).font('Helvetica-Bold').text(`CERTIFICADO DE RENTENCIÓN EN LA FUENTE`, { align: 'center' });
       
-      doc.moveDown(1).fontSize(10).font('Helvetica-Bold').text(`AÑO GRAVABLE 2025`, { align: 'center' });
-
-      
+      doc.moveDown(1).fontSize(10).font('Helvetica-Bold').text(`AÑO GRAVABLE 2025`, { align: 'center' });   
       
       doc.moveDown(1).font('Helvetica-Bold').fontSize(10).text(`Credicorp Capital Fiducairia S.A. `, { continued: true });
       doc.font('Helvetica').fontSize(10).text(`con NIT 900.520.484-7 en su calidad de Adminitradora del `, { continued: true });
@@ -157,14 +155,14 @@ export class ExcelPdfService {
         const encargo = row['Encargo'] || 'N/A';
 
         // Nombre del cliente en negrita
-        doc.moveDown(2).fontSize(10).font('Helvetica').text('El señor(a) ', { continued: true, align: 'justify' });
-        doc.font('Helvetica-Bold').text(clienteNombre, { continued: true, align: 'justify' });
-        doc.font('Helvetica').text(` identificado con la cédula de ciudadanía `, { continued: true, align: 'justify' });
-        doc.font('Helvetica-Bold').text( nit, { continued: true, align: 'justify'});
-        doc.font('Helvetica').text(`se encuentra afiliado(a) al fondo mediante el plan `, { continued: true, align: 'justify' });
-        doc.font('Helvetica-Bold').text( encargo , { continued: true, align: 'justify' });
-        doc.font('Helvetica').text(`, el cual presentó la siguiente información en el año 2025.`, { align: 'justify' });
-        
+      doc.moveDown(2).fontSize(10).font('Helvetica').text('El señor(a) ', { continued: true, align: 'justify' });
+      doc.font('Helvetica-Bold').text(clienteNombre, { continued: true, align: 'justify' });
+      doc.font('Helvetica').text(` identificado con la cédula de ciudadanía `, { continued: true, align: 'justify' });
+      doc.font('Helvetica-Bold').text( nit, { continued: true, align: 'justify'});
+      doc.font('Helvetica').text(`se encuentra afiliado(a) al fondo mediante el plan `, { continued: true, align: 'justify' });
+      doc.font('Helvetica-Bold').text( encargo , { continued: true, align: 'justify' });
+      doc.font('Helvetica').text(`, el cual presentó la siguiente información en el año 2025.`, { align: 'justify' });
+      
 
       const tableTotalWidth = 510;
       const tableLeft = 40 + (doc.page.width - 80 - tableTotalWidth) / 2; // centrado dentro de márgenes
@@ -175,15 +173,15 @@ export class ExcelPdfService {
       let tableY = doc.y + 20;
 
       const drawCell = (x: number, y: number, width: number, height: number) => {
-        doc.rect(x, y, width, height).lineWidth(1).stroke('#000000');
+        doc.rect(x, y, width, height).lineWidth(-1).stroke('#666666');
       };
 
       // Header
-      doc.font('Helvetica-Bold').fontSize(8).fillColor('black');
+      doc.font('Helvetica-Bold').fontSize(9).fillColor('black');
       drawCell(tableLeft, tableY, tableCol1Width, tableHeaderHeight);
       drawCell(tableLeft + tableCol1Width, tableY, tableCol2Width, tableHeaderHeight);
-      doc.text('Detalle', tableLeft, tableY + 4, { width: tableCol1Width, align: 'center' });
-      doc.text('Valor', tableLeft + tableCol1Width, tableY + 4, { width: tableCol2Width, align: 'center' });
+      doc.text('Detalle', tableLeft, tableY + (tableHeaderHeight - 8) / 2, { width: tableCol1Width, align: 'center' });
+      doc.text('Valor', tableLeft + tableCol1Width, tableY + (tableHeaderHeight - 8) / 2, { width: tableCol2Width, align: 'center' });
 
       tableY += tableHeaderHeight;
 
@@ -219,7 +217,7 @@ export class ExcelPdfService {
         return raw;
       };
 
-      doc.font('Helvetica').fontSize(8);
+      doc.font('Helvetica').fontSize(9);
       selectedColumns.forEach((col) => {
         const rawValue = row[col] ?? '';
         const displayValue = typeof rawValue === 'object' && rawValue?.text ? rawValue.text : rawValue;
@@ -251,13 +249,13 @@ export class ExcelPdfService {
           doc.font('Helvetica-Bold');
         }
         
-        doc.text(col, tableLeft + leftPadding, tableY + 2, { width: tableCol1Width - 12, align: 'left' });
+        doc.text(col, tableLeft + leftPadding, tableY + tableRowHeight - 9, { width: tableCol1Width - 12, align: 'left' });
         
         if (isBoldColumn) {
           doc.font('Helvetica');
         }
         
-        doc.text(formattedValue, tableLeft + tableCol1Width + 6, tableY + 3, {
+        doc.text(formattedValue, tableLeft + tableCol1Width + 6, tableY + tableRowHeight - 9, {
           width: tableCol2Width - 12,
           align: 'right',
           ellipsis: true,

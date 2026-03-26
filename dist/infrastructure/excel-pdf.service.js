@@ -154,7 +154,7 @@ let ExcelPdfService = ExcelPdfService_1 = class ExcelPdfService {
                 doc.image(rightMarginImagePath, 560, 350, { width: 20, height: 75 });
             }
             const fondo = 'FONDO VOLUNTARIO DE PENSIONES DE JUBILACIONES E INVALIDEZ CREDICORP';
-            doc.moveDown(3).fontSize(10).font('Helvetica-Bold').text(`${fondo}`, { align: 'center' });
+            doc.moveDown(4.5).fontSize(10).font('Helvetica-Bold').text(`${fondo}`, { align: 'center' });
             doc.moveDown(1).fontSize(10).font('Helvetica-Bold').text(`NIT 900.625.483-1`, { align: 'center' });
             doc.moveDown(1).fontSize(10).font('Helvetica-Bold').text(`CERTIFICADO DE RENTENCIÓN EN LA FUENTE`, { align: 'center' });
             doc.moveDown(1).fontSize(10).font('Helvetica-Bold').text(`AÑO GRAVABLE 2025`, { align: 'center' });
@@ -181,13 +181,13 @@ let ExcelPdfService = ExcelPdfService_1 = class ExcelPdfService {
             const tableHeaderHeight = 18;
             let tableY = doc.y + 20;
             const drawCell = (x, y, width, height) => {
-                doc.rect(x, y, width, height).lineWidth(1).stroke('#000000');
+                doc.rect(x, y, width, height).lineWidth(-1).stroke('#666666');
             };
-            doc.font('Helvetica-Bold').fontSize(8).fillColor('black');
+            doc.font('Helvetica-Bold').fontSize(9).fillColor('black');
             drawCell(tableLeft, tableY, tableCol1Width, tableHeaderHeight);
             drawCell(tableLeft + tableCol1Width, tableY, tableCol2Width, tableHeaderHeight);
-            doc.text('Detalle', tableLeft, tableY + 4, { width: tableCol1Width, align: 'center' });
-            doc.text('Valor', tableLeft + tableCol1Width, tableY + 4, { width: tableCol2Width, align: 'center' });
+            doc.text('Detalle', tableLeft, tableY + (tableHeaderHeight - 8) / 2, { width: tableCol1Width, align: 'center' });
+            doc.text('Valor', tableLeft + tableCol1Width, tableY + (tableHeaderHeight - 8) / 2, { width: tableCol2Width, align: 'center' });
             tableY += tableHeaderHeight;
             const formatCurrencyValue = (value) => {
                 if (value === null || value === undefined || value === '') {
@@ -218,7 +218,7 @@ let ExcelPdfService = ExcelPdfService_1 = class ExcelPdfService {
                 }
                 return raw;
             };
-            doc.font('Helvetica').fontSize(8);
+            doc.font('Helvetica').fontSize(9);
             selectedColumns.forEach((col) => {
                 const rawValue = row[col] ?? '';
                 const displayValue = typeof rawValue === 'object' && rawValue?.text ? rawValue.text : rawValue;
@@ -243,11 +243,11 @@ let ExcelPdfService = ExcelPdfService_1 = class ExcelPdfService {
                 if (isBoldColumn) {
                     doc.font('Helvetica-Bold');
                 }
-                doc.text(col, tableLeft + leftPadding, tableY + 2, { width: tableCol1Width - 12, align: 'left' });
+                doc.text(col, tableLeft + leftPadding, tableY + tableRowHeight - 9, { width: tableCol1Width - 12, align: 'left' });
                 if (isBoldColumn) {
                     doc.font('Helvetica');
                 }
-                doc.text(formattedValue, tableLeft + tableCol1Width + 6, tableY + 3, {
+                doc.text(formattedValue, tableLeft + tableCol1Width + 6, tableY + tableRowHeight - 9, {
                     width: tableCol2Width - 12,
                     align: 'right',
                     ellipsis: true,
